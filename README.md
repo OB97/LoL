@@ -12,3 +12,13 @@ Item Stats - Best Stats? Most Gold Value? Biggest Power Spikes? Status Effects? 
 Rune Stats - Best Stats? Champion Cohesion? Matchup?
 
 Team Comp. - Champion Cohesion? Team Comp. Requirements? Best Items and Runes?  
+
+______________________________________________________________________________
+
+# LoL_AutoChamp
+Program to choose champion for you based on your champ pool, team comps, items, etc...
+
+Keys:
+
+Mode - Auto assess vs. Parameter select dropdown menu
+
