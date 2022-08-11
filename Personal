@@ -1,1 +1,34 @@
 # start small, write a personal champ selector
+
+# have customizable champ pools for each role
+  # champs -> manually chosen or recommended based on champ rankings
+  # customization on champ attribute values/weights
+  
+1. Champ DB
+  # stores all champ names, damage type, attributes
+    - key, name, dmg type (ap, ad, both, true) ?==> attributes (ex. tankiness, engage, cc, heal, shield, global, etc)
+  
+2. Pool DB
+  # stores users champ pool
+    - key, name, champs
+  
+3. User DB
+  # store users
+    - key, username, associated pool ids, default pool
+    
+4. Reader
+  # interpret data from storage
+  
+5. Brain
+  # pulls data from database for organization and calculation based on user input
+    - get/set champ, pool, user
+    - champ attribute operations
+    - pool operations
+
+6. UI
+  # interface with users
+    - user creation, user search
+    - main menu: edit pool, champ select, settings
+      @ edit pool: add and remove champs from pool, organize into positions, save by name, set defualt
+      @ champ select: run through a champ select to narrow pool and record selection
+      @ settings: basic settings, edit individual champ attributes
