@@ -22,3 +22,11 @@ Keys:
 
 Mode - Auto assess vs. Parameter select dropdown menu
 
+______________________________________________________________________________
+
+#Lol_Personal
+Simple, Personal Program for selecting champion based on position
+
+Keys:
+
+Factors - Damage Types, Tankiness, scaling, engage, CC
