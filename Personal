@@ -185,6 +185,21 @@
     - get/set champ, pool, user
     - champ attribute operations
     - pool operations
+ import ChampDB as cDB
+
+ class Brain:
+
+    champs = cDB.ChampDB()
+
+    def __init__(self, champs):
+        self.chumps = champs.getChamps()
+
+    def giveChumps(self):
+        return self.chumps
+
+if __name__ == "__main__":
+
+        print("Running Brain...")
 
 5. UI
   # interface with users
@@ -193,3 +208,21 @@
       @ edit pool: add and remove champs from pool, organize into positions, save by name, set defualt
       @ champ select: run through a champ select to narrow pool and record selection
       @ settings: basic settings, edit individual champ attributes
+      
+import Brain as b
+
+class UI:
+
+    br = b.Brain()
+
+    def __init__(self, br):
+        self.chumps = br.giveChumps()
+
+    def giveChungus(self):
+        return self.chumps
+
+
+if __name__ == "__main__":
+
+        print("Running UI...")
+        print(UI().giveChungus())
