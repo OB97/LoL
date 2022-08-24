@@ -16,17 +16,9 @@ Team Comp. - Champion Cohesion? Team Comp. Requirements? Best Items and Runes?
 ______________________________________________________________________________
 
 # LoL_AutoChamp
-Program to choose champion for you based on your champ pool, team comps, items, etc...
 
-Keys:
-
-Mode - Auto assess vs. Parameter select dropdown menu
-
-______________________________________________________________________________
-
-#Lol_Personal
 Simple, Personal Program for selecting champion based on position
 
 Keys:
 
-Factors - Damage Types, Tankiness, scaling, engage, CC
+Tags - Damage Types, Tankiness, scaling, engage, CC
