@@ -5,52 +5,113 @@
 # champ select: run through a champ select to narrow pool and record selection
 # settings: basic settings, edit individual champ attributes
 
-import Brain as b
+import ChampDB
+import PoolDB
+import UserDB
+
 
 class UI:
 
-    def __init__(self, br=b.Brain()):
-        self.chumps = br.giveChumps()
-        self.pools = br.givePools()
-        self.users = br.giveUsers()
+    def __init__(self, cDB=ChampDB, pDB=PoolDB, uDB=UserDB):
+        self.uDB = uDB.UserDB()
+        self.chumps = cDB.ChampDB().getChamps()
+        self.pools = pDB.PoolDB().getPools()
+        self.users = uDB.UserDB().getUsers()
         self.curUser = "None"
+        self.selChamp = "None"
 
-
-    # UI get champs
+    # UI get all champs
     def giveChungus(self):
-        return self.chumps
+        print(list(self.chumps.values()))
 
-    # UI get pools
+    # UI get current user's pools
     def givePools(self):
-        return self.pools
+        j = []
+        k = []
+        for x in self.users.items():
+            if x[1][0] == self.curUser:
+                j.append(x[1][1])
 
-    # UI get users
-    def giveUsers(self):
-        print("Current User: " + self.curUser)
-        return self.users
+        for num in j[0]:
+            for y in self.pools.items():
+                if y[0] == num:
+                    k.append(y[1])
+        print(k)
+        print("**********")
 
-    # UI search champs
+    # UI get saved users
+    def giveUser(self):
+        print(list(self.users.values()))
+
+    # UI search for champ
     def searchChump(self):
-        i = input("Enter Champion: ")
+        print("\n**********")
+        d = input("Enter Champion: ")
+        i = d.lower()
         z = ""
-
         for x in self.chumps.items():
             if x[1][0] == i:
                 z = x
         if z != "":
             print(z[1])
+            print("**********")
+            self.selChamp = z[1]
+            self.welcome()
         else:
             print("Champion Not Found!")
+            print("**********\n")
+            self.searchChump()
 
-    # UI sign in to retrieve info
+    # UI sign in to retrieve info, set current user
     def signIn(self):
-        q = input("Enter LoL Username: ")
+        print("\n**********")
+        q = input("Enter Name: ")
+        p = False
+        self.curUser = q
         for x in self.users.items():
-            if x[1][0] == q:
-                self.curUser = q
+            if x[1][0] == self.curUser:
+                p = True
+        if p:
+            print("Welcome Back " + self.curUser + "!")
+            print("**********\n")
+        else:
+            self.uDB.addUser([q, [], 0])
+            print("User " + self.curUser + " Added!")
+            print("**********\n")
+
+        self.welcome()
+
+    # UI main loop
+    def welcome(self):
+        print("\n**********")
+        print("Current User: " + self.curUser)
+        d = input("Champions, Search, Users, Pools, Sign Out, or End?\n")
+        i = d.lower()
+        if i == "champions":
+            print("**********")
+            print("Current Selected Champ: " + self.selChamp[0])
+            self.giveChungus()
+        elif i == "search":
+            print("**********")
+            self.searchChump()
+        elif i == "users":
+            print("**********")
+            self.giveUser()
+        elif i == "pools":
+            print("**********")
+            self.givePools()
+        elif i == "sign out":
+            print("**********")
+            self.signIn()
+        elif i == "end":
+            exit()
+        else:
+            print("Invalid Input!")
+            print("**********")
+
+        self.welcome()
+
 
 if __name__ == "__main__":
     print("Running UI...")
     UI().signIn()
-    UI().giveUsers()
-    UI().searchChump()
