@@ -13,17 +13,19 @@ import UserDB
 class UI:
 
     def __init__(self, cDB=ChampDB, pDB=PoolDB, uDB=UserDB):
+        self.cDB = cDB.ChampDB()
         self.uDB = uDB.UserDB()
         self.pDB = pDB.PoolDB()
-        self.chumps = cDB.ChampDB().getChamps()
-        self.pools = pDB.PoolDB().getPools()
-        self.users = uDB.UserDB().getUsers()
         self.curUser = "None"
         self.selChamp = "None"
 
     # UI get all champs
     def giveChungus(self):
-        print(list(self.chumps.values()))
+        x = input("Print all Champions or Search? (p or s)\n")
+        if x == "p":
+            print(list(self.cDB.getChamps().values()))
+        elif x == "s":
+            self.searchChump()
 
     # UI get current user's pools
     def givePools(self):
@@ -32,16 +34,16 @@ class UI:
         # if user wants to print pools
         if z == "p":
             # update self.pools in case of addition
-            self.pools = self.pDB.getPools()
+            self.pDB.getPools()
             j = []
             k = []
             # iterate through users and grab pools held in current user
-            for x in self.users.items():
+            for x in self.uDB.getUsers().items():
                 if x[1][0] == self.curUser:
                     j.append(x[1][1])
             # iterate through pools held by current user (j), iterate through all pools (y) grabbing matching pool ids
             for num in j[0]:
-                for y in self.pools.items():
+                for y in self.pDB.getPools().items():
                     if y[0] == num:
                         k.append(y[1])
             print(k)
@@ -54,15 +56,15 @@ class UI:
             # add pool to pools.txt
             self.pDB.addPool(st)
             # add pool id to user.txt
-            self.uDB.addUserPool(self.curUser, len(self.pools.items()))
+            self.uDB.addUserPool(self.curUser, len(self.pDB.getPools().items()))
             print("Pool " + m + " Added!")
             print("**********\n")
             self.givePools()
 
     # UI get saved users
     def giveUser(self):
-        self.users = self.uDB.getUsers()
-        print(list(self.users.values()))
+        self.uDB.getUsers()
+        print(list(self.uDB.getUsers().values()))
 
     # UI search for champ
     def searchChump(self):
@@ -70,7 +72,7 @@ class UI:
         d = input("Enter Champion: ")
         i = d.lower()
         z = ""
-        for x in self.chumps.items():
+        for x in self.cDB.getChamps().items():
             if x[1][0] == i:
                 z = x
         if z != "":
@@ -89,7 +91,7 @@ class UI:
         q = input("Enter Name: ")
         p = False
         self.curUser = q
-        for x in self.users.items():
+        for x in self.uDB.getUsers().items():
             if x[1][0] == self.curUser:
                 p = True
         if p:
@@ -110,15 +112,12 @@ class UI:
     def welcome(self):
         print("\n**********")
         print("Current User: " + self.curUser)
-        d = input("Champions, Search, Users, Pools, Sign Out, or End?\n")
+        d = input("Champions, Users, Pools, Sign Out, or End?\n")
         i = d.lower()
         if i == "champions":
             print("**********")
             print("Current Selected Champ: " + self.selChamp[0])
             self.giveChungus()
-        elif i == "search":
-            print("**********")
-            self.searchChump()
         elif i == "users":
             print("**********")
             self.giveUser()
