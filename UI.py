@@ -14,6 +14,7 @@ class UI:
 
     def __init__(self, cDB=ChampDB, pDB=PoolDB, uDB=UserDB):
         self.uDB = uDB.UserDB()
+        self.pDB = pDB.PoolDB()
         self.chumps = cDB.ChampDB().getChamps()
         self.pools = pDB.PoolDB().getPools()
         self.users = uDB.UserDB().getUsers()
@@ -26,21 +27,41 @@ class UI:
 
     # UI get current user's pools
     def givePools(self):
-        j = []
-        k = []
-        for x in self.users.items():
-            if x[1][0] == self.curUser:
-                j.append(x[1][1])
+        # get input
+        z = input("Print pools or Add pool? (p or a)\n")
+        # if user wants to print pools
+        if z == "p":
+            # update self.pools in case of addition
+            self.pools = self.pDB.getPools()
+            j = []
+            k = []
+            # iterate through users and grab pools held in current user
+            for x in self.users.items():
+                if x[1][0] == self.curUser:
+                    j.append(x[1][1])
+            # iterate through pools held by current user (j), iterate through all pools (y) grabbing matching pool ids
+            for num in j[0]:
+                for y in self.pools.items():
+                    if y[0] == num:
+                        k.append(y[1])
+            print(k)
+            print("**********")
 
-        for num in j[0]:
-            for y in self.pools.items():
-                if y[0] == num:
-                    k.append(y[1])
-        print(k)
-        print("**********")
+        # if user adds a pool
+        elif z == "a":
+            m = input("Enter Pool Name: ")
+            st = m + ",0"
+            # add pool to pools.txt
+            self.pDB.addPool(st)
+            # add pool id to user.txt
+            self.uDB.addUserPool(self.curUser, len(self.pools.items()))
+            print("Pool " + m + " Added!")
+            print("**********\n")
+            self.givePools()
 
     # UI get saved users
     def giveUser(self):
+        self.users = self.uDB.getUsers()
         print(list(self.users.values()))
 
     # UI search for champ
@@ -74,12 +95,16 @@ class UI:
         if p:
             print("Welcome Back " + self.curUser + "!")
             print("**********\n")
+            self.welcome()
         else:
-            self.uDB.addUser([q, [], 0])
-            print("User " + self.curUser + " Added!")
-            print("**********\n")
-
-        self.welcome()
+            add = input("User Not Found! Add User? (y or n)\n")
+            if add == "n":
+                self.signIn()
+            elif add == "y":
+                self.uDB.addUser(q + ",0" + ",0")
+                print("User " + q + " Added!")
+                print("**********\n")
+                self.welcome()
 
     # UI main loop
     def welcome(self):
