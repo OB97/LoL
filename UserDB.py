@@ -14,8 +14,35 @@ class UserDB:
             default = splitted[len(splitted)-1].rstrip()
             final[i+1] = [splitted[0], fin, int(default)]
             i = i+1
+        usertxt.close()
         return final
 
     def addUser(self, inp):
         usertxt = open("users.txt", "a")
         usertxt.writelines("\n" + inp)
+        usertxt.close()
+
+    def addUserPool(self, user, inp):
+        added = False
+        usertxt = open("users.txt", "r+")
+        d = usertxt.readlines()
+        usertxt.seek(0)
+        for line in d:
+            splitted = line.split(",")
+            if splitted[0] == user:
+                splitted.insert(len(splitted)-1, inp)
+                changes = line.replace(line, ",".join(str(x) for x in splitted))
+                added = True
+                usertxt.write(changes)
+            else:
+                usertxt.write(line)
+        usertxt.truncate()
+        usertxt.close()
+
+        if added:
+            print("Pool added to User: " + user)
+        else:
+            print("User not found!")
+
+    def setDefaultPool(self, inp):
+        pass
