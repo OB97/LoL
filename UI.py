@@ -19,7 +19,7 @@ class UI:
         self.curUser = "0"
         self.selChamp = "0"
 
-    # UI get all champs
+    # UI access champs
     def giveChungus(self):
         x = input("Print all Champions or Search? (p or s)\n")
         if x == "p":
@@ -27,7 +27,7 @@ class UI:
         elif x == "s":
             self.searchChump()
 
-    # UI get current user's pools
+    # UI access pools
     def givePools(self):
         # get input
         z = input("Print pools or Add pool? (p or a)\n")
@@ -61,12 +61,12 @@ class UI:
             print("**********\n")
             self.givePools()
 
-    # UI get saved users
+    # UI access users
     def giveUser(self):
         self.uDB.getUsers()
         print(list(self.uDB.getUsers().values()))
 
-    # UI search for champ
+    # UI search champs
     def searchChump(self):
         print("\n**********")
         d = input("Enter Champion: ")
@@ -79,13 +79,12 @@ class UI:
             print(z[1])
             print("**********")
             self.selChamp = z[1]
-            self.welcome()
         else:
             print("Champion Not Found!")
             print("**********\n")
             self.searchChump()
 
-    # UI sign in to retrieve info, set current user
+    # UI sign in, set current user
     def signIn(self):
         print("\n**********")
         q = input("Enter Name: ")
