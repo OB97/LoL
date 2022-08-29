@@ -1,6 +1,2 @@
 testpool1, 1
 testpool2, 1, 2
-nate's new pool,0
-alex's new pool,0
-poolio,0
-poolio,0
