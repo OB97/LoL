@@ -19,4 +19,3 @@ class PoolDB:
     def addPool(self, inp):
         pooltxt = open("pools.txt", "a")
         pooltxt.writelines("\n" + inp)
-
