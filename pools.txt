@@ -1,0 +1,3 @@
+testpool1,1
+apool,0
+plool,0
