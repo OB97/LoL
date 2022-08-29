@@ -2,11 +2,21 @@
 # key, name, champs
 
 class PoolDB:
-    def __init__(self, pools={1:["a", 3, "b"], 2:["c", 7, "d"], 3:["e", 9, "f"]}):
-        self.pools = pools
 
     def getPools(self):
-        return self.pools
+        final = {}
+        i = 0
+        pooltxt = open("pools.txt", "r")
+        for line in pooltxt:
+            a = line.split(",")
+            name = a[0]
+            z = a[1:]
+            champs = list(map(int, z))
+            final[i+1] = [name, champs]
+            i = i + 1
+        return final
 
-    def addPool(self):
-        pass
+    def addPool(self, inp):
+        pooltxt = open("pools.txt", "a")
+        pooltxt.writelines("\n" + inp)
+
