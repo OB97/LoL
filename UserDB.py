@@ -1,12 +1,21 @@
+# store users
 # key, name, associated pool ids, default pool
 
 class UserDB:
-    def __init__(self, uzerz={1:["alex", [1], 1], 2:["nate", [2, 3], 2]}):
-        self.list = uzerz
 
     def getUsers(self):
-        return self.list
+        final = {}
+        i = 0
+        usertxt = open("users.txt", "r")
+        for line in usertxt:
+            splitted = line.split(",")
+            pools = splitted[1:len(splitted)-1]
+            fin = list(map(int, pools))
+            default = splitted[len(splitted)-1].rstrip()
+            final[i+1] = [splitted[0], fin, int(default)]
+            i = i+1
+        return final
 
     def addUser(self, inp):
-        q = len(self.list) + 1
-        self.list[q] = inp
+        usertxt = open("users.txt", "a")
+        usertxt.writelines("\n" + inp)
