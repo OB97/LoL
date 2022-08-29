@@ -1,6 +1,3 @@
-# stores all champ names, damage type, attributes
-# key, name, type, attributes (ex. dmg type, tankiness, engage, cc, heal, shield, global, etc)
-
 class ChampDB:
 
         def __init__(self, data={
