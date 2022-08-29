@@ -16,8 +16,8 @@ class UI:
         self.cDB = cDB.ChampDB()
         self.uDB = uDB.UserDB()
         self.pDB = pDB.PoolDB()
-        self.curUser = "None"
-        self.selChamp = "None"
+        self.curUser = "0"
+        self.selChamp = "0"
 
     # UI get all champs
     def giveChungus(self):
