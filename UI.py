@@ -12,6 +12,7 @@ import UserDB
 
 class UI:
 
+    # initialize DBs, current user, and selected champ
     def __init__(self, cDB=ChampDB, pDB=PoolDB, uDB=UserDB):
         self.cDB = cDB.ChampDB()
         self.uDB = uDB.UserDB()
@@ -31,12 +32,21 @@ class UI:
     def givePools(self):
         # get input
         z = input("Print pools or Add pool? (p or a)\n")
+
         # if user wants to print pools
         if z == "p":
+
+            if self.pDB.getPools().items()[1][0] == "":
+                print("No Pools Found!")
+                self.givePools()
+
             # update self.pools in case of addition
             self.pDB.getPools()
             j = []
             k = []
+            champlist = []
+            z = []
+
             # iterate through users and grab pools held in current user
             for x in self.uDB.getUsers().items():
                 if x[1][0] == self.curUser:
@@ -46,13 +56,30 @@ class UI:
                 for y in self.pDB.getPools().items():
                     if y[0] == num:
                         k.append(y[1])
-            print(k)
+            # iterate through pools and champ list pulling champ names contained in pools
+            for v in k:
+                for f in self.cDB.getChamps().items():
+                    if f[0] in v[1]:
+                        champlist.append(f[1][0])
+                z.append([v[0], champlist])
+                champlist = []
+            print(z)
             print("**********")
 
         # if user adds a pool
         elif z == "a":
+            done = False
             m = input("Enter Pool Name: ")
-            st = m + ",0"
+            st = m
+            while not done:
+                n = input("Enter Champion: (end to stop)\n")
+                if n != "end":
+                    for val in self.cDB.getChamps().items():
+                        if n == val[1][0]:
+                            st = st + "," + str(val[0])
+                elif n == "end":
+                    done = True
+
             # add pool to pools.txt
             self.pDB.addPool(st)
             # add pool id to user.txt
@@ -61,7 +88,7 @@ class UI:
             print("**********\n")
             self.givePools()
 
-    # UI access users
+    # UI get saved users
     def giveUser(self):
         self.uDB.getUsers()
         print(list(self.uDB.getUsers().values()))
@@ -84,7 +111,7 @@ class UI:
             print("**********\n")
             self.searchChump()
 
-    # UI sign in, set current user
+    # UI sign, set current user
     def signIn(self):
         print("\n**********")
         q = input("Enter Name: ")
