@@ -22,3 +22,11 @@ Simple, Personal Program for selecting champion based on position
 Keys:
 
 Tags - Damage Types, Tankiness, scaling, engage, CC
+
+______________________________________________________________________________
+
+# LoL_LiveTips
+
+Assesses what is happening in your game, and gives live tips/options for what to do next, predict the outcome of suggested actions
+
+Auto-ping when jungler is spotted?
