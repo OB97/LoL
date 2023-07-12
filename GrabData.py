@@ -1,4 +1,4 @@
-# Program to connect with League of Legends API and pull the data into a spreadsheet
+# Program to connect with League of Legends Statistical Data
 # By: Alex O'Brien
 
 import requests
