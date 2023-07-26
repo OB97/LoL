@@ -13,11 +13,14 @@ def main():
     # main loop
     while True:
 
-        inp = input("Enter Champion Name (x to exit): ")
+        inp = input("Enter Input (x to exit): ")
         if inp == 'x':
             break
 
-        pprint.pprint(calculator.getMax("hp"))
+        #pprint.pprint(calculator.getData())
+        #pprint.pprint(calculator.getByField("stats"))
+        #pprint.pprint(calculator.sMax("hp"))
+        pprint.pprint(calculator.sMin("armor"))
 
 
 if __name__ == "__main__":
