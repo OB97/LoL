@@ -1,14 +1,15 @@
 # UTILITY
-# Program to perform calculations to gather KPI's
+# Program that performs calculations to gather KPI's
 # By: Alex O'Brien
 import GrabData
 
 
+# noinspection SpellCheckingInspection
 class Calculate:
     def __init__(self):
         self.data = GrabData.grabData()
 
-    ### GETTERS ###
+    ### GET DATA ###
 
     # get all data
     # @params: self
@@ -26,7 +27,7 @@ class Calculate:
             fData.append([champ, self.data[champ][f]])
         return fData
 
-    ### OPERATIONS ###
+    ### GET STATS ###
 
     # find the highest value by stat name -
     ## armor, armorperlevel, attackdamage, attackdamageperlevel, attackrange, attackspeed, attackspeedperlevel, crit,
@@ -44,6 +45,9 @@ class Calculate:
         return lstMax
 
     # find the lowest value by stat name
+    ## armor, armorperlevel, attackdamage, attackdamageperlevel, attackrange, attackspeed, attackspeedperlevel, crit,
+    ## critperlevel, hp, hpperlevel, hpregen, hpregenperlevel, movespeed, mp, mpperlevel, mpregen, mpregenperlevel,
+    ## spellblock, spellblockperlevel
     # @params: self, stat name
     # @return: [str,str]
     def sMin(self, st):
@@ -56,7 +60,7 @@ class Calculate:
         return lstMin
 
     # calculate a stat value at a specific level
-    # @params: self, stat name
+    # @params: self, stat name, level
     # @return: [str,{str}]
-    def sAtLevel(self, st, inLevel):
+    def sAtLevel(self, st, inLvl):
         return self.data
