@@ -11,13 +11,8 @@ class Calculate:
     def getData(self):
         return self.data
 
-    def getMax(self, field):
-        x = 0
-        for champ in self.data:
-            for field in champ:
-                if int(champ[field]) > x:
-                    x = champ
-        return x
+    def getMax(self, f):
+        return self.data
 
     def getMin(self, field):
         return self.data
