@@ -3,24 +3,16 @@
 # By: Alex O'Brien
 
 import Calculate
+import GrabData
 import pprint
 
 
 def main():
-    calculator = Calculate.Calculate()
-    data = calculator.getData()
+    champDict = GrabData.setChamps()
+    calculator = Calculate.Calculate(champDict)
 
-    # main loop
-    while True:
-
-        inp = input("Enter Input (x to exit): ")
-        if inp == 'x':
-            break
-
-        #pprint.pprint(calculator.getData())
-        #pprint.pprint(calculator.getByField("stats"))
-        #pprint.pprint(calculator.sMax("hp"))
-        pprint.pprint(calculator.sMin("armor"))
+    for obj in champDict.keys():
+        print(calculator.statsAtLevel(obj, 1))
 
 
 if __name__ == "__main__":

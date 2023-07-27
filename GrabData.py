@@ -4,6 +4,7 @@
 
 import requests
 import json
+import Champion
 
 
 VERSION_URL = "https://ddragon.leagueoflegends.com/api/versions.json"
@@ -34,3 +35,25 @@ def grabData():
         return data['data']
     else:
         print(f"Error: {response.status_code}")
+
+
+# get data by field name -
+## info, partype, stats, tags
+# @params: field name
+# @return: [str,{str}]
+def getByField(f):
+    d = grabData()
+    fData = []
+    for champ in d.keys():
+        fData.append([champ, d[champ][f]])
+    return fData
+
+
+# set up list of champion objects
+# @params: none
+# @return: {str:obj}
+def setChamps():
+    champObjs = {}
+    for obj in getByField("stats"):
+        champObjs[obj[0]] = Champion.Champion(obj[0], getByField("stats"))
+    return champObjs

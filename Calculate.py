@@ -1,62 +1,27 @@
 # UTILITY
-# Program to perform calculations to gather KPI's
+# Program to perform calculations on champion objects to gather KPI's
 # By: Alex O'Brien
 import GrabData
 
 
 class Calculate:
-    def __init__(self):
-        self.data = GrabData.grabData()
+    def __init__(self, objList):
+        self.data = objList
 
-    ### GETTERS ###
-
-    # get all data
-    # @params: self
-    # @return: {str:{str}}
-    def getData(self):
-        return self.data
-
-    # get data by field name -
-    ## info, partype, stats, tags
-    # @params: self, field name
-    # @return: [str,{str}]
-    def getByField(self, f):
-        fData = []
-        for champ in self.data.keys():
-            fData.append([champ, self.data[champ][f]])
-        return fData
-
-    ### OPERATIONS ###
-
-    # find the highest value by stat name -
-    ## armor, armorperlevel, attackdamage, attackdamageperlevel, attackrange, attackspeed, attackspeedperlevel, crit,
-    ## critperlevel, hp, hpperlevel, hpregen, hpregenperlevel, movespeed, mp, mpperlevel, mpregen, mpregenperlevel,
-    ## spellblock, spellblockperlevel
-    # @params: self, stat name
-    # @return: [str,{str}]
-    def sMax(self, st):
-        curMax = 0
-        lstMax = []
-        for lst in self.getByField("stats"):
-            if int(lst[1][st]) > curMax:
-                curMax = int(lst[1][st])
-                lstMax = lst
-        return lstMax
-
-    # find the lowest value by stat name
-    # @params: self, stat name
-    # @return: [str,str]
-    def sMin(self, st):
-        curMin = 1000
-        lstMin = []
-        for lst in self.getByField("stats"):
-            if int(lst[1][st]) < curMin:
-                curMin = int(lst[1][st])
-                lstMin = lst
-        return lstMin
-
-    # calculate a stat value at a specific level
-    # @params: self, stat name
-    # @return: [str,{str}]
-    def sAtLevel(self, st, inLevel):
-        return self.data
+    def statsAtLevel(self, name, lvl):
+        curObj = self.data[name]
+        newDict = {
+            "Name": name,
+            "Armor": round(curObj.getArmor() + curObj.getArmorPer() * lvl, 2),
+            "Attack Damage": round(curObj.getAD() + curObj.getADPer() * lvl, 2),
+            "Attack Range": round(curObj.getARange(), 2),
+            "Attack Speed": "Todo",
+            "Crit": round(curObj.getCrit() + curObj.getCritPer() * lvl, 2),
+            "Health Points": round(curObj.getHP() + curObj.getHPPer() * lvl, 2),
+            "Health Regen": round(curObj.getHPRegen() + curObj.getHPRegenPer() * lvl, 2),
+            "Move Speed": round(curObj.getMoveSpeed(), 2),
+            "Mana Points": round(curObj.getMP() + curObj.getMPPer() * lvl, 2),
+            "Mana Regen": round(curObj.getMPRegen() + curObj.getMPRegenPer() * lvl, 2),
+            "Magic Resist": round(curObj.getMR() + curObj.getMRPer() * lvl, 2)
+        }
+        return newDict
