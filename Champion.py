@@ -31,6 +31,23 @@ class Champion:
                 self.mr = float(champ[1]["spellblock"])
                 self.mrperlvl = float(champ[1]["spellblockperlevel"])
 
+    def statsAtLevel(self, lvl):
+        newDict = {
+            "Name": self.name,
+            "Armor": round(self.getArmor() + self.getArmorPer() * lvl, 2),
+            "Attack Damage": round(self.getAD() + self.getADPer() * lvl, 2),
+            "Attack Range": round(self.getARange(), 2),
+            "Attack Speed": "Todo",
+            "Crit": round(self.getCrit() + self.getCritPer() * lvl, 2),
+            "Health Points": round(self.getHP() + self.getHPPer() * lvl, 2),
+            "Health Regen": round(self.getHPRegen() + self.getHPRegenPer() * lvl, 2),
+            "Move Speed": round(self.getMoveSpeed(), 2),
+            "Mana Points": round(self.getMP() + self.getMPPer() * lvl, 2),
+            "Mana Regen": round(self.getMPRegen() + self.getMPRegenPer() * lvl, 2),
+            "Magic Resist": round(self.getMR() + self.getMRPer() * lvl, 2)
+        }
+        return newDict
+
     def __repr__(self):
         return self.name
 

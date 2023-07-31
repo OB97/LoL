@@ -11,8 +11,8 @@ def main():
     champDict = GrabData.setChamps()
     calculator = Calculate.Calculate(champDict)
 
-    for obj in champDict.keys():
-        print(calculator.statsAtLevel(obj, 1))
+    for obj in champDict.values():
+        print(obj.statsAtLevel(4))
 
 
 if __name__ == "__main__":
